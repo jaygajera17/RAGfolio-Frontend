@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import type { Message } from "../types/chat";
-import pdfUrl from "../assets/icici-5-10.pdf";
+import pdfUrl from "../assets/icici-fund-factsheet-for-may-2026.pdf";
 
 interface ChatMessagesProps {
   messages: Message[];

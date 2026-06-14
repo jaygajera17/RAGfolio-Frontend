@@ -1,75 +1,43 @@
-# React + TypeScript + Vite
+# 🌌 RAGfolio Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**RAGfolio** is a specialized Multimodal Retrieval-Augmented Generation (RAG) pipeline designed to ingest, process, and accurately query ICICI Mutual Fund factsheets. This system goes beyond traditional text-based RAG; it visually understands complex financial document layouts, dynamically extracts charts, and retrieves both text and images to provide context-rich, highly accurate answers about your funds.
 
-Currently, two official plugins are available:
+🚀 **Site is live at:** [https://ragfolio-frontend.vercel.app](https://ragfolio-frontend.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+🔗 **Frontend Repository:** [https://github.com/jaygajera17/RAGfolio-Frontend](https://github.com/jaygajera17/RAGfolio-Frontend)
 
-## React Compiler
+⚙️ **Backend Repository (Technical Details):** [https://github.com/jaygajera17/RAGfolio-Backend](https://github.com/jaygajera17/RAGfolio-Backend)
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+📄 **Factsheet PDF:** The sample ICICI Mutual Fund factsheet used in this project can be found [here](./src/assets/icici-fund-factsheet-for-may-2026.pdf).
 
-Note: This will impact Vite dev & build performances.
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Steps to run the project
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Follow these steps to set up and run the frontend locally:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/jaygajera17/RAGfolio-Frontend.git
+   cd RAGfolio-Frontend
+   ```
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+2. **Install dependencies**
+   Make sure you have Node.js installed, then run:
+   ```bash
+   npm install
+   ```
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+3. **Environment Configuration**
+   Create a `.env` file in the root of your project and configure your variables (such as Auth0 credentials and the backend API URL).
+   ```env
+   VITE_AUTH0_DOMAIN=your-auth0-domain
+   VITE_AUTH0_CLIENT_ID=your-auth0-client-id
+   VITE_API_URL=http://localhost:8000
+   ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+4. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+   Open your browser and navigate to the local URL provided in your terminal (usually `http://localhost:5173`).
