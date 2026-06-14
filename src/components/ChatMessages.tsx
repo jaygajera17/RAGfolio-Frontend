@@ -1,4 +1,5 @@
 import { useRef, useEffect } from "react";
+import ReactMarkdown from "react-markdown";
 import type { Message } from "../types/chat";
 import pdfUrl from "../assets/icici-5-10.pdf";
 
@@ -29,7 +30,7 @@ export function ChatMessages({ messages, loading, error, onChipClick }: ChatMess
           </div>
           <h2 className="empty-title">Ask anything about your fund</h2>
           <p className="empty-subtitle">
-            FundLens reads the ICICI Prudential fact sheet so you don't have to — ask about NAV, returns, portfolio holdings, or market outlook.
+            RagFolio reads the ICICI Prudential fact sheet so you don't have to — ask about NAV, returns, portfolio holdings, or market outlook.
           </p>
           <div className="query-chips">
             <button className="query-chip" onClick={() => onChipClick?.("What is the current NAV of the Large Cap Fund?")}>What is the current NAV of the Large Cap Fund?</button>
@@ -49,7 +50,11 @@ export function ChatMessages({ messages, loading, error, onChipClick }: ChatMess
       ) : (
         messages.map((msg) => (
           <div key={msg.id} className={`message-bubble ${msg.role}`}>
-            {msg.content}
+            {msg.role === "assistant" ? (
+              <ReactMarkdown>{msg.content}</ReactMarkdown>
+            ) : (
+              msg.content
+            )}
           </div>
         ))
       )}

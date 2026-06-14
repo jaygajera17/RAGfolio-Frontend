@@ -34,8 +34,8 @@ export function ChatHeader() {
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
         <div>
-          <h1 className="brand-title">FundLens</h1>
-          <span className="brand-subtitle">MF-RAG: Mutual fund RAG</span>
+          <h1 className="brand-title">RAGfolio</h1>
+          <span className="brand-subtitle">RAGfolio: Mutual fund RAG</span>
         </div>
       </div>
 
