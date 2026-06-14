@@ -29,7 +29,7 @@ export function ChatMessages({ messages, loading, error, onChipClick }: ChatMess
           </div>
           <h2 className="empty-title">Ask anything about your fund</h2>
           <p className="empty-subtitle">
-            FundLens reads the ICICI Prudential fact sheet so you don't have to — ask about NAV, returns, portfolio holdings, or market outlook.
+            RagFolio reads the ICICI Prudential fact sheet so you don't have to — ask about NAV, returns, portfolio holdings, or market outlook.
           </p>
           <div className="query-chips">
             <button className="query-chip" onClick={() => onChipClick?.("What is the current NAV of the Large Cap Fund?")}>What is the current NAV of the Large Cap Fund?</button>
