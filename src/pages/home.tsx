@@ -1,6 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import React, { useState } from "react";
-import { Navigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import { getChatResponse } from "../services/chatService";
 import type { Message } from "../types/chat";
 import { ChatHeader } from "../components/ChatHeader";
@@ -8,36 +7,14 @@ import { ChatMessages } from "../components/ChatMessages";
 import { ChatInput } from "../components/ChatInput";
 
 function Home() {
-  const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, isAuthenticated, loginWithRedirect } = useAuth0();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  if (isLoading) {
-    return (
-      <div className="chat-layout" style={{ justifyContent: "center", alignItems: "center" }}>
-        <div className="typing-indicator">
-          <div className="typing-dot"></div>
-          <div className="typing-dot"></div>
-          <div className="typing-dot"></div>
-        </div>
-        <p style={{ marginTop: "12px", color: "var(--text)" }}>Loading app...</p>
-      </div>
-    );
-  }
-
-  if (!isAuthenticated) return <Navigate to="/login" replace />;
-
-  const handleSend = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!input.trim() || loading) return;
-
-    const userQuery = input.trim();
-
-    setInput("");
+  const sendQuery = async (userQuery: string) => {
     setError(null);
-
     const userMsgId = `user-${Date.now()}`;
     setMessages((prev) => [...prev, { id: userMsgId, role: "user", content: userQuery }]);
     setLoading(true);
@@ -51,22 +28,49 @@ function Home() {
         ...prev,
         { id: aiMsgId, role: "assistant", content: response.content },
       ]);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Chat Error:", err);
-      setError(
+      const message =
         typeof err === "string"
           ? err
-          : err?.message || "An error occurred while fetching the AI response."
-      );
+          : err instanceof Error
+            ? err.message
+            : "An error occurred while fetching the AI response.";
+      setError(message);
     } finally {
       setLoading(false);
     }
   };
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      const pendingPrompt = localStorage.getItem("pendingPrompt");
+      if (pendingPrompt) {
+        localStorage.removeItem("pendingPrompt");
+        sendQuery(pendingPrompt);
+      }
+    }
+  }, [isAuthenticated, getAccessTokenSilently]);
+
+  const handleSend = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!input.trim() || loading) return;
+
+    if (!isAuthenticated) {
+      localStorage.setItem("pendingPrompt", input.trim());
+      loginWithRedirect({ appState: { returnTo: "/" } });
+      return;
+    }
+
+    const userQuery = input.trim();
+    setInput("");
+    await sendQuery(userQuery);
+  };
+
   return (
     <div className="chat-layout">
       <ChatHeader />
-      <ChatMessages messages={messages} loading={loading} error={error} />
+      <ChatMessages messages={messages} loading={loading} error={error} onChipClick={setInput} />
       <ChatInput
         input={input}
         loading={loading}

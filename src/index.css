@@ -1,21 +1,23 @@
+@import "tailwindcss";
+
 :root {
   --text: #6b6375;
   --text-h: #08060d;
-  --bg: #fff;
+  --bg: #F8F7FC;
   --border: #e5e4e7;
   --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
+  --accent: #7C3AED;
+  --accent-bg: rgba(124, 58, 237, 0.1);
+  --accent-border: rgba(124, 58, 237, 0.5);
   --social-bg: rgba(244, 243, 236, 0.5);
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --sans: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
-  font: 18px/145% var(--sans);
+  font: 15px/145% var(--sans);
   letter-spacing: 0.18px;
   color-scheme: light dark;
   color: var(--text);
@@ -127,7 +129,6 @@ code {
   padding: 12px 24px;
   border-bottom: 1px solid var(--border);
   background: var(--bg);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
   z-index: 10;
 }
 
@@ -140,12 +141,9 @@ code {
 .brand-title {
   font-family: var(--heading);
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-h);
   margin: 0;
-  background: linear-gradient(135deg, var(--accent) 0%, #8b2cf5 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 .header-actions {
@@ -238,12 +236,13 @@ code {
 .empty-icon {
   font-size: 48px;
   margin-bottom: 16px;
-  animation: float 3s ease-in-out infinite;
+  color: var(--accent);
 }
 
 .empty-title {
-  font-size: 22px;
-  font-weight: 500;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
   color: var(--text-h);
   margin-bottom: 8px;
 }
@@ -322,8 +321,20 @@ code {
 
 .chat-input-container {
   padding: 16px 24px;
-  border-top: 1px solid var(--border);
   background: var(--bg);
+  position: relative;
+}
+
+.chat-input-container::before {
+  content: "";
+  position: absolute;
+  top: -24px;
+  left: 0;
+  right: 0;
+  height: 24px;
+  background: linear-gradient(to top, var(--bg), transparent);
+  pointer-events: none;
+
 }
 
 .chat-input-form {
@@ -348,10 +359,11 @@ code {
   outline: none;
   transition: all 0.2s ease;
   resize: none;
-  height: 48px;
+  height: 56px;
   box-sizing: border-box;
   overflow-y: hidden;
   line-height: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .chat-textarea:focus {
@@ -475,6 +487,102 @@ code {
   transform: translateY(-2px);
   background: #8b2cf5;
   box-shadow: 0 6px 16px rgba(170, 59, 255, 0.3);
+}
+
+.query-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 24px;
+  max-width: 600px;
+}
+
+.query-chip {
+  background: var(--accent-bg);
+  color: var(--accent);
+  border: none;
+  padding: 10px 18px;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.query-chip:hover {
+  background: rgba(124, 58, 237, 0.15);
+  transform: translateY(-1px);
+}
+
+.empty-pdf-outline {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 24px;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 8px 16px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.empty-pdf-outline:hover {
+  border-color: var(--text);
+  color: var(--text-h);
+}
+
+.dropdown-container {
+  position: relative;
+}
+
+.dropdown-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dropdown-trigger:hover {
+  background: var(--code-bg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  padding: 8px;
+  min-width: 150px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-menu .logout-btn {
+  border: none;
+  width: 100%;
+  text-align: left;
+  border-radius: 4px;
+  padding: 8px 12px;
+}
+
+.attribution {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text);
+  margin-top: 8px;
+  opacity: 0.7;
 }
 
 

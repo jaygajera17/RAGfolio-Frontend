@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface AppState {
   // Add global state slices here as the app grows
   // Example:
@@ -10,9 +11,9 @@ interface AppState {
 
 export const useAppStore = create<AppState>()(
   devtools(
-    (_set) => ({
+    () => ({
       // Define initial state and actions here
     }),
-    { name: "mmrag-app-store" }
+    { name: "app-store" }
   )
 );

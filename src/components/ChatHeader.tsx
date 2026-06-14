@@ -1,8 +1,21 @@
+import { useState, useRef, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import pdfUrl from "../assets/icici-5-10.pdf";
 
 export function ChatHeader() {
   const { user, logout } = useAuth0();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdownOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <header className="chat-header">
@@ -10,18 +23,19 @@ export function ChatHeader() {
         <svg
           width="28"
           height="28"
-          viewBox="0 0 32 32"
+          viewBox="0 0 24 24"
           fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+          stroke="var(--accent)"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         >
-          <path
-            d="M16 2C8.268 2 2 8.268 2 16C2 23.732 8.268 30 16 30C23.732 30 30 23.732 30 16C30 8.268 23.732 2 16 2ZM17.5 22H14.5V14H17.5V22ZM17.5 11.5H14.5V8.5H17.5V11.5Z"
-            fill="var(--accent)"
-          />
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
         <div>
-          <h1 className="brand-title">MMRag Assistant</h1>
-          <span className="brand-subtitle">ICICI Bank Q&A</span>
+          <h1 className="brand-title">FundLens</h1>
+          <span className="brand-subtitle">MF-RAG: Mutual fund RAG</span>
         </div>
       </div>
 
@@ -53,31 +67,54 @@ export function ChatHeader() {
         </a>
 
         {user && (
-          <div className="user-profile-badge">
-            {user.picture && (
-              <img
-                className="user-avatar"
-                src={user.picture}
-                alt={user.name}
-              />
+          <div className="dropdown-container" ref={dropdownRef}>
+            <button
+              className="dropdown-trigger"
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+            >
+              {user.picture && (
+                <img
+                  className="user-avatar"
+                  src={user.picture}
+                  alt={user.name}
+                />
+              )}
+              <span className="user-name" title={user.email}>
+                {user.name || user.email}
+              </span>
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                style={{ marginLeft: "4px" }}
+              >
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+
+            {dropdownOpen && (
+              <div className="dropdown-menu">
+                <button
+                  className="logout-btn"
+                  onClick={() =>
+                    logout({
+                      logoutParams: {
+                        returnTo: window.location.origin,
+                      },
+                    })
+                  }
+                >
+                  Logout
+                </button>
+              </div>
             )}
-            <span className="user-name" title={user.email}>
-              {user.name || user.email}
-            </span>
           </div>
         )}
-        <button
-          className="logout-btn"
-          onClick={() =>
-            logout({
-              logoutParams: {
-                returnTo: window.location.origin,
-              },
-            })
-          }
-        >
-          Logout
-        </button>
       </div>
     </header>
   );

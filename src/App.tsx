@@ -1,14 +1,13 @@
-import './App.css'
-import AppRouter from './router/AppRouter'
-
+import "./App.css";
+import AppRouter from "./router/AppRouter";
+import { ErrorBoundary } from "./components/ErrorBoundary";
 
 function App() {
-
   return (
-    <>
-      <AppRouter/>
-    </>
-  )
+    <ErrorBoundary>
+      <AppRouter />
+    </ErrorBoundary>
+  );
 }
 
-export default App
+export default App;
