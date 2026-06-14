@@ -1,4 +1,5 @@
 import { useRef, useEffect } from "react";
+import ReactMarkdown from "react-markdown";
 import type { Message } from "../types/chat";
 import pdfUrl from "../assets/icici-5-10.pdf";
 
@@ -49,7 +50,11 @@ export function ChatMessages({ messages, loading, error, onChipClick }: ChatMess
       ) : (
         messages.map((msg) => (
           <div key={msg.id} className={`message-bubble ${msg.role}`}>
-            {msg.content}
+            {msg.role === "assistant" ? (
+              <ReactMarkdown>{msg.content}</ReactMarkdown>
+            ) : (
+              msg.content
+            )}
           </div>
         ))
       )}
