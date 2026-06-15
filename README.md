@@ -1,75 +1,73 @@
-# React + TypeScript + Vite
+# 🌌 RAGfolio - Multimodal RAG for Mutual Fund Factsheets
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Deployment](https://img.shields.io/badge/Deployed-Vercel-black?logo=vercel)
+![Stack](https://img.shields.io/badge/Stack-React%20%2B%20FastAPI-blue)
+![Embeddings](https://img.shields.io/badge/Embeddings-Gemini%202.0-orange?logo=google)
+![Vector DB](https://img.shields.io/badge/VectorDB-Qdrant-purple)
+![Auth](https://img.shields.io/badge/Auth-Auth0-eb5424?logo=auth0)
 
-Currently, two official plugins are available:
+**RAGfolio** is a specialized Multimodal Retrieval-Augmented Generation (RAG) pipeline designed to ingest, process, and accurately query ICICI Mutual Fund factsheets. This system goes beyond traditional text-based RAG; it visually understands complex financial document layouts, dynamically extracts charts, and retrieves both text and images to provide context-rich, highly accurate answers about your funds.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+🚀 **Site is live at:** [https://ragfolio-frontend.vercel.app](https://ragfolio-frontend.vercel.app/)
 
-## React Compiler
+🔗 **Frontend Repository:** [https://github.com/jaygajera17/RAGfolio-Frontend](https://github.com/jaygajera17/RAGfolio-Frontend)
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+⚙️ **Backend Repository (Technical Details):** [https://github.com/jaygajera17/RAGfolio-Backend](https://github.com/jaygajera17/RAGfolio-Backend)
 
-Note: This will impact Vite dev & build performances.
+📄 **Factsheet PDF:** The sample ICICI Mutual Fund factsheet used in this project can be found [here](./src/assets/icici-fund-factsheet-for-may-2026.pdf).
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Preview
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+![RAGfolio Preview](./src/assets/image1.png)
+![RAGfolio Preview](./src/assets/image2.png)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Tech stack
+ 
+| Layer | Technology |
+|---|---|
+| Frontend | React + Vite, assistant-ui |
+| Auth | Auth0 (PKCE flow) |
+| Backend | FastAPI (Python) |
+| Embeddings | Gemini Embedding 2.0 — 3072 dimensions |
+| Vector store | Qdrant Serverless (cloud) |
+| PDF extraction | PyMuPDF (fitz) |
+| LLM | Gemini 1.5 Pro via `ChatGoogleGenerativeAI` |
+| Deployment | Vercel (frontend) |
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🛠️ Steps to run the Frontend
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Follow these steps to set up and run the frontend locally:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/jaygajera17/RAGfolio-Frontend.git
+   cd RAGfolio-Frontend
+   ```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+2. **Install dependencies**
+   Make sure you have Node.js installed, then run:
+   ```bash
+   npm install
+   ```
+
+3. **Environment Configuration**
+   Create a `.env` file in the root of your project and configure your variables (such as Auth0 credentials and the backend API URL).
+   ```env
+   VITE_AUTH0_DOMAIN=your-auth0-domain
+   VITE_AUTH0_CLIENT_ID=your-auth0-client-id
+   VITE_API_URL=http://localhost:3000
+   ```
+
+4. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+   Open your browser and navigate to the local URL provided in your terminal (usually `http://localhost:5173`).
+
+| Variable | Where to find it |
+|---|---|
+| `VITE_AUTH0_DOMAIN` | Auth0 dashboard → Applications → your app → Domain |
+| `VITE_AUTH0_CLIENT_ID` | Auth0 dashboard → Applications → your app → Client ID |
+| `VITE_API_URL` | Your locally running FastAPI backend (default: `http://localhost:3000`) |

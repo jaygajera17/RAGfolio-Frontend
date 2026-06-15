@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import pdfUrl from "../assets/icici-5-10.pdf";
+import pdfUrl from "../assets/icici-fund-factsheet-for-may-2026.pdf";
 
 export function ChatHeader() {
   const { user, logout } = useAuth0();
