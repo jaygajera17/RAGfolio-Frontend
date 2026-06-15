@@ -34,9 +34,9 @@ export function ChatMessages({ messages, loading, error, onChipClick }: ChatMess
           </p>
           <div className="query-chips">
             <button className="query-chip" onClick={() => onChipClick?.("What is the current NAV of the Large Cap Fund?")}>What is the current NAV of the Large Cap Fund?</button>
-            <button className="query-chip" onClick={() => onChipClick?.("Which fund had the best 3-year CAGR?")}>Which fund had the best 3-year CAGR?</button>
-            <button className="query-chip" onClick={() => onChipClick?.("Summarise the equity market outlook for April 2026")}>Summarise the equity market outlook for April 2026</button>
-            <button className="query-chip" onClick={() => onChipClick?.("What are the top 5 portfolio holdings?")}>What are the top 5 portfolio holdings?</button>
+            <button className="query-chip" onClick={() => onChipClick?.("Who is fund manager of Large and mid cap fund?")}>Who is fund manager of Large and midcap fund?</button>
+            <button className="query-chip" onClick={() => onChipClick?.("What are top allocations holding of flexicap fund?")}>what are top allocations of flexicap fund?</button>
+            <button className="query-chip" onClick={() => onChipClick?.("How much return multicap fund has given?")}>How much return multicap fund has given?</button>
           </div>
           <a
             href={pdfUrl}
