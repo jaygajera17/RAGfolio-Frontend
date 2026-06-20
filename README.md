@@ -19,9 +19,10 @@
 ---
 
 ### Preview
-
+<img width="1901" height="867" alt="image" src="https://github.com/user-attachments/assets/246c4e26-dcf1-4c5f-b444-698d7418cb15" />
 ![RAGfolio Preview](./src/assets/image1.png)
-![RAGfolio Preview](./src/assets/image2.png)
+### Multi modal Ability:
+<img width="2460" height="840" alt="image" src="https://github.com/user-attachments/assets/bb4bb6cf-6601-4373-8e17-5ed50123e892" />
 
 ## Tech stack
  
