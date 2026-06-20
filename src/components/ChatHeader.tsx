@@ -20,22 +20,16 @@ export function ChatHeader() {
   return (
     <header className="chat-header">
       <div className="brand-section">
-        <svg
-          width="28"
-          height="28"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="var(--accent)"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
+        <div className="brand-logo">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <path d="M9 15l2 2 4-4"></path>
+          </svg>
+        </div>
         <div>
           <h1 className="brand-title">RAGfolio</h1>
-          <span className="brand-subtitle">RAGfolio: Mutual fund RAG</span>
+          <span className="brand-subtitle">Mutual Fund RAG</span>
         </div>
       </div>
 
@@ -47,23 +41,11 @@ export function ChatHeader() {
           className="view-pdf-btn"
           title="Open the source PDF file in a new tab"
         >
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            style={{ marginRight: "6px" }}
-          >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
             <polyline points="14 2 14 8 20 8"></polyline>
-            <line x1="16" y1="13" x2="8" y2="13"></line>
-            <line x1="16" y1="17" x2="8" y2="17"></line>
           </svg>
-          Source PDF
+          <span>Source PDF</span>
         </a>
 
         {user && (
@@ -79,20 +61,10 @@ export function ChatHeader() {
                   alt={user.name}
                 />
               )}
-              <span className="user-name" title={user.email}>
-                {user.name || user.email}
+              <span className="user-name">
+                {(user.name || user.email || "").split(" ")[0]}
               </span>
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                style={{ marginLeft: "4px" }}
-              >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </button>
@@ -109,7 +81,12 @@ export function ChatHeader() {
                     })
                   }
                 >
-                  Logout
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                  </svg>
+                  Sign out
                 </button>
               </div>
             )}
