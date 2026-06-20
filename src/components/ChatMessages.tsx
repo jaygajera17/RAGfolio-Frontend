@@ -10,6 +10,13 @@ interface ChatMessagesProps {
   onChipClick?: (query: string) => void;
 }
 
+const SUGGESTED_QUERIES = [
+  "What is the current NAV of the Large Cap Fund?",
+  "Who is fund manager of Large and midcap fund?",
+  "What are top allocations of flexicap fund?",
+  "How much return multicap fund has given?",
+];
+
 export function ChatMessages({ messages, loading, error, onChipClick }: ChatMessagesProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -22,21 +29,27 @@ export function ChatMessages({ messages, loading, error, onChipClick }: ChatMess
       {messages.length === 0 ? (
         <div className="empty-state">
           <div className="empty-icon">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
               <polyline points="14 2 14 8 20 8"></polyline>
-              <path d="M15.5 12.5l.46-1.46a1 1 0 0 1 1.9 0l.46 1.46a1 1 0 0 0 .63.63l1.46.46a1 1 0 0 1 0 1.9l-1.46.46a1 1 0 0 0-.63.63l-.46 1.46a1 1 0 0 1-1.9 0l-.46-1.46a1 1 0 0 0-.63-.63l-1.46-.46a1 1 0 0 1 0-1.9l1.46-.46a1 1 0 0 0 .63-.63z" fill="currentColor"></path>
+              <path d="M12 18v-6"></path>
+              <path d="M9 15l3-3 3 3"></path>
             </svg>
           </div>
           <h2 className="empty-title">Ask anything about your fund</h2>
           <p className="empty-subtitle">
-            RagFolio reads the ICICI Prudential fact sheet so you don't have to — ask about NAV, returns, portfolio holdings, or market outlook.
+            RAGfolio reads the ICICI Prudential fact sheet so you don't have to — ask about NAV, returns, portfolio holdings, or market outlook.
           </p>
           <div className="query-chips">
-            <button className="query-chip" onClick={() => onChipClick?.("What is the current NAV of the Large Cap Fund?")}>What is the current NAV of the Large Cap Fund?</button>
-            <button className="query-chip" onClick={() => onChipClick?.("Who is fund manager of Large and mid cap fund?")}>Who is fund manager of Large and midcap fund?</button>
-            <button className="query-chip" onClick={() => onChipClick?.("What are top allocations holding of flexicap fund?")}>what are top allocations of flexicap fund?</button>
-            <button className="query-chip" onClick={() => onChipClick?.("How much return multicap fund has given?")}>How much return multicap fund has given?</button>
+            {SUGGESTED_QUERIES.map((q) => (
+              <button
+                key={q}
+                className="query-chip"
+                onClick={() => onChipClick?.(q)}
+              >
+                {q}
+              </button>
+            ))}
           </div>
           <a
             href={pdfUrl}
